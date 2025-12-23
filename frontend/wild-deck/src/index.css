@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #165736;
+  --color-secondary: #808033;
+  --color-background: #2d403e;
+  --color-rightPanelBG: #41573b;
+  --color-surface: #f4f1eaa;
+  --color-accent: #cc987a;
+  --color-text-main: #ffffff;
+  --color-text-muted: #d1d5db;
+  --color-danger: #ef4444;
+
+  /* Boton jugar gigante */
+  --accent-orange: #f59e0b;
+  --accent-orange-hover: #fb923c;
+  --accent-orange-glow: rgba(245, 158, 11, 0.25);
+
+  /* Animales */
+  --animal-bg: #c08457;
+  --animal-bg-active: #a86a3f;
+
+  /* Plantas */
+  --plant-bg: #8fd19e;
+  --plant-bg-active: #6fbf84;
+
+  /* Extinción */
+  --status-lc: #22c55e; /* verde vivo */
+  --status-vu: #eab308; /* amarillo intenso */
+  --status-en: #f97316; /* naranja potente */
+  --status-cr: #ef4444; /* rojo fuerte */
+
+  --topbar-from: #0f1f1c; /* verde casi negro */
+  --topbar-to: #152b27; /* verde profundo */
+
+  --collection-from: #c08b63; /* arena tostada */
+  --collection-to: #a9744f; /* tierra cálida */
+
+  --sidebar-from: #1f3632; /* verde bosque */
+  --sidebar-to: #2a4a44; /* verde suavizado */
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px var(--accent-orange-glow);
+  }
+  50% {
+    box-shadow: 0 0 18px var(--accent-orange-glow);
+  }
+}
+
+/* Scroll invisible pero funcional */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}

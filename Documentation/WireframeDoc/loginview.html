@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WildDeck - Login</title>
+
+    <!-- Fuente Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN con configuración personalizada -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#165736",
+              secondary: "#808033",
+              background: "#2d403e",
+              rightPanelBG: "#41573b",
+              surface: "#f4f1ea",
+              accent: "#cc987a",
+              "text-main": "#ffffff",
+              "text-muted": "#d1d5db",
+              danger: "#ef4444",
+            },
+            fontFamily: {
+              sans: ["Poppins", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-rightPanelBG text-text-main font-sans flex items-center justify-center px-4"
+  >
+    <!-- Card principal centrada -->
+    <div
+      class="w-full max-w-5xl bg-surface rounded-2xl shadow-2xl shadow-black/30 grid grid-cols-1 md:grid-cols-2 overflow-hidden"
+    >
+      <!-- Panel izquierdo: diseño constante -->
+      <section
+        class="bg-accent text-white flex flex-col items-center justify-center p-8"
+      >
+        <!-- Logo / icono -->
+        <div
+          class="mb-6 h-12 w-12 rounded-full border border-white/40 flex items-center justify-center"
+        >
+          <!-- Aquí podrías poner el logo -->
+          <span class="text-xl font-bold">W</span>
+        </div>
+
+        <!-- Mensaje principal -->
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+          Explora, aprende y desbloquea la naturaleza
+        </h2>
+
+        <!-- Mensaje secundario -->
+        <p class="text-center text-sm md:text-base opacity-90 max-w-md">
+          Completa mini tests para desbloquear cartas de animales y plantas,
+          gana experiencia y construye tu colección WildDeck.
+        </p>
+
+        <!-- Ilustración placeholder -->
+        <div
+          class="mt-8 h-32 w-32 rounded-full border border-white/40 flex items-center justify-center text-sm opacity-80"
+        >
+          Ilustración aquí
+        </div>
+      </section>
+
+      <!-- Panel derecho: Login/Register (solo login mostrado) -->
+      <section class="bg-background text-text-main p-8 md:p-10 flex flex-col">
+        <!-- Pestañas arriba: login activo, register inactivo (solo visual) -->
+        <div class="flex justify-end gap-2 mb-8">
+          <button
+            class="px-4 py-2 text-sm font-semibold rounded-full bg-primary text-white shadow-md shadow-primary/40"
+          >
+            Iniciar sesión
+          </button>
+          <button
+            class="px-4 py-2 text-sm font-semibold rounded-full bg-transparent text-text-muted border border-white/20 hover:bg-white/5 transition"
+          >
+            Crear cuenta
+          </button>
+        </div>
+
+        <!-- Contenido LOGIN -->
+        <div class="flex-1 flex flex-col gap-4">
+          <h1 class="text-2xl font-bold mb-2">Bienvenido de nuevo</h1>
+          <p class="text-sm text-text-muted mb-4">
+            Inicia sesión para continuar tu colección de cartas.
+          </p>
+
+          <!-- Email -->
+          <label class="flex flex-col gap-1 text-sm">
+            <span>Correo electrónico</span>
+            <input
+              type="email"
+              class="w-full px-4 py-2.5 rounded-lg bg-surface border border-white/10 text-black placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+              placeholder="tucorreo@ejemplo.com"
+            />
+          </label>
+
+          <!-- Password -->
+          <label class="flex flex-col gap-1 text-sm">
+            <span>Contraseña</span>
+            <input
+              type="password"
+              class="w-full px-4 py-2.5 rounded-lg bg-surface border border-white/10 text-black placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+              placeholder="••••••••"
+            />
+          </label>
+
+          <!-- Enlaces -->
+          <div class="flex items-center justify-between mt-2 text-sm">
+            <button class="text-accent hover:underline">
+              ¿Has olvidado tu contraseña?
+            </button>
+            <button
+              class="text-text-muted hover:text-text-main hover:underline"
+            >
+              ¿Nuevo en WildDeck? Crear cuenta
+            </button>
+          </div>
+
+          <!-- Botón login -->
+          <button
+            class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 active:scale-[0.98] transition shadow-md shadow-primary/40"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

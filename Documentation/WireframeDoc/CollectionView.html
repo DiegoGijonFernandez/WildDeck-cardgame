@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>WildDeck - Colección</title>
+
+  <!-- Fuente Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN + config WildDeck -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:    '#165736',
+            secondary:  '#808033',
+            background: '#2d403e',
+            surface:    '#f4f1ea',
+            accent:     '#cc987a',
+            'text-main':  '#ffffff',
+            'text-muted': '#d1d5db',
+            danger:     '#ef4444',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Estilos extra para ocultar scrollbar -->
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE y Edge */
+      scrollbar-width: none;     /* Firefox */
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-accent text-text-main font-sans">
+
+  <div class="min-h-screen flex flex-col">
+
+    <!-- TOPBAR -->
+    <header class="h-16 px-4 md:px-8 flex items-center justify-between border-b border-white/10 bg-background/95 backdrop-blur">
+      <!-- Izquierda: logo / nombre -->
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center">
+          <span class="font-bold text-lg">W</span>
+        </div>
+        <span class="text-lg font-semibold tracking-wide">WildDeck</span>
+      </div>
+
+      <!-- Centro: botón Jugar -->
+      <button
+        class="hidden sm:inline-flex items-center justify-center px-5 py-2.5
+               rounded-full bg-primary text-white font-semibold text-sm
+               shadow-md shadow-primary/40 hover:bg-primary/90 active:scale-[0.98]
+               transition"
+      >
+        ▶ Jugar
+      </button>
+
+      <!-- Derecha: perfil + nivel -->
+      <div class="flex items-center gap-4">
+        <!-- Nivel -->
+        <div class="flex items-center gap-1 text-sm">
+          <span class="text-yellow-300">★</span>
+          <span class="font-semibold">3</span>
+        </div>
+
+        <!-- Perfil -->
+        <div class="flex items-center gap-2">
+          <div class="h-9 w-9 rounded-full bg-surface flex items-center justify-center text-primary font-semibold">
+            A
+          </div>
+          <div class="hidden sm:flex flex-col leading-tight">
+            <span class="text-sm font-medium">Explorador</span>
+            <span class="text-xs text-text-muted">Usuario</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="flex flex-1 overflow-hidden">
+
+      <!-- SIDEBAR FILTROS -->
+      <aside class="hidden md:flex w-64 border-r border-white/10 bg-background/90 p-4 flex-col gap-4">
+        <!-- Cabecera sidebar -->
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-text-muted">
+            Filtros
+          </h2>
+          <!-- Indicador de plegable (solo visual) -->
+          <button class="h-7 w-7 rounded-full bg-surface flex items-center justify-center text-xs text-text-muted">
+            ‹›
+          </button>
+        </div>
+
+        <!-- Grupo: Animal / Planta -->
+        <section class="mb-3">
+          <h3 class="text-center text-sm font-semibold mb-2">Categoría</h3>
+          <div class="flex justify-center gap-3">
+            <button class="px-3 py-1.5 text-xs rounded-full bg-primary text-white font-medium">
+              Animal
+            </button>
+            <button class="px-3 py-1.5 text-xs rounded-full bg-surface text-black font-medium border border-white/20">
+              Planta
+            </button>
+          </div>
+        </section>
+
+        <!-- Grupo genérico para tipo / hábitat / dieta / extinción -->
+        <section class="space-y-4 text-xs">
+          <!-- Tipo -->
+          <div class="border border-white/10 rounded-xl bg-background/60 p-3">
+            <h3 class="text-center text-sm font-semibold mb-2">Tipo</h3>
+            <div class="flex justify-center gap-2">
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">○</button>
+              <button class="h-8 w-8 rounded-lg bg-surface flex items-center justify-center border border-white/15 text-xs text-black">□</button>
+              <button class="h-8 w-8 rounded-md bg-surface flex items-center justify-center border border-white/15 text-xs text-black">△</button>
+            </div>
+          </div>
+
+          <!-- Hábitat -->
+          <div class="border border-white/10 rounded-xl bg-background/60 p-3">
+            <h3 class="text-center text-sm font-semibold mb-2">Hábitat</h3>
+            <div class="flex justify-center gap-2">
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">B</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">M</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">A</button>
+            </div>
+          </div>
+
+          <!-- Dieta -->
+          <div class="border border-white/10 rounded-xl bg-background/60 p-3">
+            <h3 class="text-center text-sm font-semibold mb-2">Dieta</h3>
+            <div class="flex justify-center gap-2">
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">H</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">C</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-xs text-black">O</button>
+            </div>
+          </div>
+
+          <!-- Peligro de extinción -->
+          <div class="border border-white/10 rounded-xl bg-background/60 p-3">
+            <h3 class="text-center text-sm font-semibold mb-2 text-red-200">P. de extinción</h3>
+            <div class="flex justify-center gap-2">
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-[10px] text-black">LC</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-[10px] text-black">EN</button>
+              <button class="h-8 w-8 rounded-full bg-surface flex items-center justify-center border border-white/15 text-[10px] text-black">CR</button>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- ZONA DERECHA: búsqueda + grid (slider) + paginación -->
+      <main class="flex-1 px-4 md:px-8 py-6 flex flex-col gap-6 overflow-hidden">
+
+        <!-- Barra de búsqueda + ordenación (topbar del grid) -->
+        <section
+          class="rounded-2xl bg-background/80 border border-white/10
+                 px-4 py-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
+        >
+          <!-- Buscador -->
+          <div class="flex-1 flex items-center gap-3">
+            <div class="flex-1 relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-muted">🔍</span>
+              <input
+                type="text"
+                placeholder="Buscar especie por nombre..."
+                class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-surface
+                       border border-white/10 text-black placeholder:text-text-muted
+                       focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+                       transition"
+              />
+            </div>
+          </div>
+
+          <!-- Botones de orden -->
+          <div class="flex items-center gap-2 justify-end">
+            <button
+              class="px-3 py-2 text-xs rounded-xl bg-surface text-black border border-white/15 hover:bg-white/60 transition"
+            >
+              A → Z
+            </button>
+            <button
+              class="px-3 py-2 text-xs rounded-xl bg-surface text-black border border-white/15 hover:bg-white/60 transition"
+            >
+              Z → A
+            </button>
+          </div>
+        </section>
+
+        <!-- GRID DE CARTAS - SLIDER HORIZONTAL -->
+        <section class="flex-1 flex flex-col gap-4 overflow-hidden">
+          <div
+            id="cardsSlider"
+            class="no-scrollbar overflow-x-auto overflow-y-hidden pb-3
+                   flex gap-4 cursor-grab select-none"
+          >
+            <!-- Cada carta tiene ancho fijo para hacer carrusel lateral -->
+            <!-- 1: Carta desbloqueada -->
+            <article
+              class="min-w-[230px] max-w-[230px]
+                     rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10
+                     overflow-hidden hover:-translate-y-1 hover:shadow-xl transition"
+            >
+              <div class="h-40 bg-secondary/40"></div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black leading-tight">Lince Ibérico</h3>
+                  <p class="text-xs text-gray-600 leading-tight">Bosque mediterráneo</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-primary/15 text-primary text-[10px] font-semibold uppercase tracking-wide">
+                  Común
+                </span>
+              </div>
+            </article>
+
+            <!-- Cartas bloqueadas (repite este bloque las veces que quieras) -->
+            <article
+              class="min-w-[230px] max-w-[230px]
+                     rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10
+                     overflow-hidden opacity-60"
+            >
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+
+            <!-- Duplica el bloque anterior para simular muchas cartas -->
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+
+            <!-- Añade más artículos aquí para probar el slider -->
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+            <article class="min-w-[230px] max-w-[230px] rounded-2xl bg-surface shadow-lg shadow-black/30 border border-white/10 overflow-hidden opacity-60">
+              <div class="h-40 bg-black/50 flex items-center justify-center text-xs text-gray-300">
+                Carta bloqueada
+              </div>
+              <div class="p-3 flex items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm font-semibold text-black/70 leading-tight">????</h3>
+                  <p class="text-xs text-gray-500 leading-tight">Supera el test para desbloquear</p>
+                </div>
+                <span class="px-2 py-1 rounded-full bg-gray-200 text-gray-600 text-[10px] font-semibold uppercase tracking-wide">
+                  Bloqueada
+                </span>
+              </div>
+            </article>
+            
+
+            <!-- ... añade más para que el scroll tenga sentido ... -->
+
+          </div>
+
+          <!-- PAGINACIÓN (fija, fuera del slider) -->
+          <div class="flex items-center justify-end gap-2 mt-1">
+            <button class="px-3 py-1.5 text-xs rounded-full bg-background/80 border border-white/15 text-text-muted hover:bg-background/60">
+              ‹ Anterior
+            </button>
+            <button class="px-3 py-1.5 text-xs rounded-full bg-primary text-white font-semibold">
+              1
+            </button>
+            <button class="px-3 py-1.5 text-xs rounded-full bg-background/80 border border-white/15 text-text-muted hover:bg-background/60">
+              2
+            </button>
+            <button class="px-3 py-1.5 text-xs rounded-full bg-background/80 border border-white/15 text-text-muted hover:bg-background/60">
+              Siguiente ›
+            </button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS para drag-to-scroll en el slider de cartas -->
+  <script>
+    const slider = document.getElementById('cardsSlider');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      slider.classList.add('cursor-grabbing');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.classList.remove('cursor-grabbing');
+    });
+
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('cursor-grabbing');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.2; // velocidad de arrastre
+      slider.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+</body>
+</html>
